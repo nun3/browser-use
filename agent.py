@@ -99,8 +99,9 @@ Por favor, gere um relatório completo baseado nos dados acima.
     
     # Gera o relatório usando o LLM
     try:
-        # Usa o método correto para ChatGoogle
-        relatorio_resposta = await llm.ainvoke(relatorio_prompt)
+        # Usa o método correto para ChatGoogle - precisa ser uma lista de mensagens
+        from langchain_core.messages import HumanMessage
+        relatorio_resposta = await llm.ainvoke([HumanMessage(content=relatorio_prompt)])
         relatorio_detalhado = relatorio_resposta.content
     except Exception as e:
         relatorio_detalhado = f"Erro ao gerar relatório: {str(e)}"
