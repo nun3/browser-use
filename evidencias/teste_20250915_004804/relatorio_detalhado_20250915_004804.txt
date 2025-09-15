@@ -1,0 +1,1 @@
+Erro ao gerar relatório: 'str' object has no attribute 'model_copy'
