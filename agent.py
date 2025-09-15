@@ -84,6 +84,27 @@ async def main():
     # Executa o agente e captura o resultado
     resultado = await agent.run()
     
+    # Gera relatório detalhado usando o LLM
+    print("\nGerando relatório detalhado...")
+    relatorio_prompt = f"""
+{prompt_relatorio}
+
+DADOS DA EXECUÇÃO:
+- Tarefa: {task}
+- Resultado: {resultado}
+- Data/Hora: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
+
+Por favor, gere um relatório completo baseado nos dados acima.
+"""
+    
+    # Gera o relatório usando o LLM
+    try:
+        # Usa o método correto para ChatGoogle
+        relatorio_resposta = await llm.ainvoke(relatorio_prompt)
+        relatorio_detalhado = relatorio_resposta.content
+    except Exception as e:
+        relatorio_detalhado = f"Erro ao gerar relatório: {str(e)}"
+    
     # Salva evidências do teste
     evidencia_conteudo = f"""
 TESTE AUTOMATIZADO - BIBLIOTECH
@@ -96,16 +117,23 @@ TAREFA EXECUTADA:
 RESULTADO DA EXECUÇÃO:
 {resultado}
 
-PROMPT DE RELATÓRIO:
+RELATÓRIO DETALHADO:
+{relatorio_detalhado}
+
+PROMPT DE RELATÓRIO ORIGINAL:
 {prompt_relatorio}
 """
     
     # Salva as evidências em arquivo txt
     salvar_evidencia(evidencias_dir, evidencia_conteudo, f"evidencias_teste_{timestamp}")
     
+    # Salva também apenas o relatório detalhado
+    salvar_evidencia(evidencias_dir, relatorio_detalhado, f"relatorio_detalhado_{timestamp}")
+    
     print(f"\nTeste concluído! Evidências salvas em: {evidencias_dir}")
     print("Arquivos gerados:")
     print(f"- evidencias_teste_{timestamp}.txt")
+    print(f"- relatorio_detalhado_{timestamp}.txt")
     print(f"- Screenshots (se capturados)")
 
 if __name__ == "__main__":
