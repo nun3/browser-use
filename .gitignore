@@ -1,10 +1,12 @@
-# Arquivos de ambiente
-.env
-
-# Ambiente virtual Python
-.venv/
+# Ambiente Virtual
 venv/
 env/
+.venv/
+.env/
+
+# Arquivos de configuração local
+.env
+config.local.env
 
 # Cache Python
 __pycache__/
@@ -37,8 +39,14 @@ wheels/
 
 # Logs
 *.log
+logs/
 
-# Sistema operacional
+# Evidências de testes (opcional - descomente se não quiser versionar)
+# evidencias/
+
+# Arquivos temporários
+*.tmp
+*.temp
 .DS_Store
 Thumbs.db
 

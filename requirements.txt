@@ -1,0 +1,25 @@
+# Dependências principais do Browser Use
+browser-use>=0.1.0
+playwright>=1.40.0
+python-dotenv>=1.0.0
+
+# Dependências para Google Gemini
+google-generativeai>=0.3.0
+
+# Dependências para DeepSeek (OpenAI compatible)
+openai>=1.0.0
+
+# Dependências para OpenAI (opcional)
+# openai>=1.0.0  # Já incluído acima
+
+# Dependências para Anthropic (opcional)
+anthropic>=0.7.0
+
+# Dependências adicionais para automação
+selenium>=4.15.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# Dependências para desenvolvimento e testes
+pytest>=7.4.0
+pytest-asyncio>=0.21.0

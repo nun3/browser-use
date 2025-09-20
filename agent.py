@@ -54,9 +54,15 @@ async def main():
     llm = ChatGoogle(model="gemini-2.0-flash-exp")
     
     # Define a tarefa que o agente deve executar
-    task = ("Faça um login nesse site https://bibliotechapp.vercel.app/login "
-            "e me diga se o login foi feito com sucesso usuario é thegoldengrace@gmail.com "
-            "e a senha é 123456 e realize alguns testes exploratorios, e me retorne ")
+    task = ("Analise completamente a aplicação Bibliotech em https://bibliotechapp.vercel.app/login "
+            "Realize login com email: thegoldengrace@gmail.com e senha: 123456 "
+            "Explore todas as funcionalidades disponíveis: navegação, empréstimos, devoluções, reservas, perfil do usuário, etc. "
+            "Teste diferentes cenários: buscar livros, filtrar, ordenar, paginar, etc. "
+            "Identifique todas as funcionalidades e fluxos da aplicação "
+            "Gere cenários de teste em formato Gherkin (Given-When-Then) para cada funcionalidade descoberta "
+            "Inclua cenários positivos e negativos para cada feature "
+            "Organize os cenários por funcionalidade (Login, Busca de Livros, Empréstimo, Devolução, Reserva, Perfil, etc.) "
+            "Seja detalhado e cubra todos os casos de uso possíveis ")
     
     # Prompt para geração de relatório detalhado
     prompt_relatorio = f"""
@@ -64,13 +70,20 @@ async def main():
             
             Gere um relatório detalhado incluindo:
             1. **RESUMO DOS TESTES EXECUTADOS:** Lista de ações realizadas com status (sucesso/falha).
-            2. **FUNCIONALIDADES TESTADAS:** Descrição das funcionalidades exploradas.
-            3. **PROBLEMAS IDENTIFICADOS:** Bugs ou falhas encontradas.
-            4. **ANÁLISE DE USABILIDADE:** Facilidade de navegação e clareza.
-            5. **ANÁLISE DE SEGURANÇA:** Funcionamento de login/logout.
-            6. **RECOMENDAÇÕES:** Melhorias sugeridas.
-            7. **SCORE GERAL:** Avaliação de 1-10 por aspecto e geral.
-            8. **CENÁRIOS DE TESTE EM GHERKIN:** Gere cenários para todas as funcionalidades descobertas.
+            2. **FUNCIONALIDADES DESCOBERTAS:** Descrição detalhada de todas as funcionalidades encontradas.
+            3. **FLUXOS IDENTIFICADOS:** Mapeamento dos principais fluxos de usuário.
+            4. **PROBLEMAS IDENTIFICADOS:** Bugs ou falhas encontradas.
+            5. **ANÁLISE DE USABILIDADE:** Facilidade de navegação e clareza.
+            6. **ANÁLISE DE SEGURANÇA:** Funcionamento de login/logout e proteções.
+            7. **CENÁRIOS GHERKIN COMPLETOS:** Gere cenários detalhados em formato Gherkin para TODAS as funcionalidades descobertas, incluindo:
+               - Cenários positivos (happy path)
+               - Cenários negativos (edge cases)
+               - Cenários de erro
+               - Cenários de validação
+               - Organize por funcionalidade (Login, Busca, Empréstimo, Devolução, Reserva, Perfil, etc.)
+            8. **COBERTURA DE TESTES:** Mapeamento de quais funcionalidades precisam de mais testes.
+            9. **RECOMENDAÇÕES:** Melhorias sugeridas baseadas na análise.
+            10. **SCORE GERAL:** Avaliação de 1-10 por aspecto e geral.
             """
     
     # Criar pasta de evidências com timestamp

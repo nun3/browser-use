@@ -24,6 +24,30 @@ def testar_gemini():
         print(f"❌ Erro com Google Gemini: {e}")
         return False
 
+def testar_deepseek():
+    """Testa a API do DeepSeek"""
+    try:
+        from browser_use import ChatOpenAI
+        api_key = os.getenv('DEEPSEEK_API_KEY')
+        if not api_key or api_key == 'your_deepseek_api_key_here':
+            print("❌ DEEPSEEK_API_KEY não configurada no config.env")
+            return False
+        
+        print(f"🔑 Chave DeepSeek encontrada: {api_key[:10]}...")
+        llm = ChatOpenAI(
+            model="deepseek-chat",
+            api_key=api_key,
+            base_url="https://api.deepseek.com"
+        )
+        print("✅ DeepSeek configurado com sucesso!")
+        return True
+    except ImportError:
+        print("❌ Erro: ChatOpenAI não disponível. Instale: pip install openai")
+        return False
+    except Exception as e:
+        print(f"❌ Erro com DeepSeek: {e}")
+        return False
+
 def testar_openai():
     """Testa a API do OpenAI"""
     try:
@@ -65,22 +89,27 @@ def main():
     gemini_ok = testar_gemini()
     print()
     
-    print("2. Testando OpenAI:")
+    print("2. Testando DeepSeek:")
+    deepseek_ok = testar_deepseek()
+    print()
+    
+    print("3. Testando OpenAI:")
     openai_ok = testar_openai()
     print()
     
-    print("3. Testando Anthropic:")
+    print("4. Testando Anthropic:")
     anthropic_ok = testar_anthropic()
     print()
     
     print("📊 Resumo:")
     print(f"   Google Gemini: {'✅' if gemini_ok else '❌'}")
+    print(f"   DeepSeek: {'✅' if deepseek_ok else '❌'}")
     print(f"   OpenAI: {'✅' if openai_ok else '❌'}")
     print(f"   Anthropic: {'✅' if anthropic_ok else '❌'}")
     
-    if not any([gemini_ok, openai_ok, anthropic_ok]):
+    if not any([gemini_ok, deepseek_ok, openai_ok, anthropic_ok]):
         print("\n⚠️  Nenhuma API configurada corretamente!")
-        print("   Configure pelo menos uma API no arquivo .env")
+        print("   Configure pelo menos uma API no arquivo config.env")
     else:
         print("\n🎉 Pelo menos uma API está funcionando!")
 
