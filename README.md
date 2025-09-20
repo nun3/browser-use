@@ -1,6 +1,6 @@
 # Projeto Browser Use
 
-Este projeto utiliza o Browser Use para automação de navegador com IA, configurado para usar o Google Gemini como modelo de linguagem.
+Este projeto utiliza o Browser Use para automação de navegador com IA, configurado para usar Google Gemini ou OpenAI GPT como modelos de linguagem.
 
 ## Configuração
 
@@ -45,17 +45,16 @@ As dependências estão listadas no arquivo `requirements.txt`:
 - `playwright`: Para automação do navegador
 - `python-dotenv`: Para carregar variáveis de ambiente
 - `google-generativeai`: Para Google Gemini
-- `openai`: Para DeepSeek e OpenAI
-- `anthropic`: Para Claude (opcional)
+- `openai`: Para OpenAI GPT
 
 ### 3. Configuração da API
 1. Copie o arquivo `config.env` para `.env`
 2. Configure suas chaves de API:
    - **Google Gemini:** Substitua `your_gemini_api_key_here` pela sua chave
-   - **DeepSeek:** Substitua `your_deepseek_api_key_here` pela sua chave
+   - **OpenAI GPT:** Substitua `your_openai_api_key_here` pela sua chave
 3. Obtenha suas chaves:
    - **Gemini:** https://aistudio.google.com/app/apikey
-   - **DeepSeek:** https://platform.deepseek.com/api_keys
+   - **OpenAI:** https://platform.openai.com/api-keys
 
 ## Como Usar
 
@@ -82,9 +81,9 @@ python agentUniversal.py
 python agent.py
 ```
 
-#### Opção 3: Agente com DeepSeek
+#### Opção 3: Agente com OpenAI GPT
 ```bash
-python agentDeepSeek.py
+python agentGPT.py
 ```
 
 ## Personalização
@@ -103,21 +102,21 @@ No arquivo `.env`, defina qual modelo usar por padrão:
 # Para usar Gemini (padrão)
 DEFAULT_MODEL=gemini
 
-# Para usar DeepSeek
-DEFAULT_MODEL=deepseek
+# Para usar OpenAI GPT
+DEFAULT_MODEL=gpt
 ```
 
 ### Usar Outras APIs
-Para usar OpenAI ou Anthropic, descomente as linhas correspondentes no `.env` e modifique o código:
+Para usar outras APIs, descomente as linhas correspondentes no `.env` e modifique o código:
 
 ```python
-# Para OpenAI
+# Para OpenAI GPT
 from browser_use import ChatOpenAI
-llm = ChatOpenAI(model="gpt-4")
+llm = ChatOpenAI(model="gpt-4o")
 
-# Para Anthropic
-from browser_use import ChatAnthropic
-llm = ChatAnthropic(model="claude-3-5-sonnet-20241022")
+# Para Google Gemini
+from browser_use import ChatGoogle
+llm = ChatGoogle(model="gemini-2.0-flash-exp")
 ```
 
 ## Exemplos de Tarefas
@@ -141,7 +140,7 @@ llm = ChatAnthropic(model="claude-3-5-sonnet-20241022")
   ```
 - **Dependências não instaladas:** Execute `pip install -r requirements.txt`
 - **Playwright:** Se houver problemas, execute: `playwright install chromium`
-- **DeepSeek não funciona:** A dependência `openai` já está incluída no requirements.txt
+- **OpenAI GPT não funciona:** A dependência `openai` já está incluída no requirements.txt
 
 
 ### Verificar Configuração

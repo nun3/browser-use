@@ -19,8 +19,8 @@ def configurar_llm():
     """
     modelo_padrao = os.getenv('DEFAULT_MODEL', 'gemini').lower()
     
-    if modelo_padrao == 'deepseek':
-        return configurar_deepseek()
+    if modelo_padrao == 'gpt':
+        return configurar_gpt()
     else:
         return configurar_gemini()
 
@@ -39,25 +39,23 @@ def configurar_gemini():
     print(f"🤖 Usando Google Gemini: {modelo}")
     return ChatGoogle(model=modelo)
 
-def configurar_deepseek():
+def configurar_gpt():
     """
-    Configura o DeepSeek
+    Configura o OpenAI GPT
     """
-    api_key = os.getenv('DEEPSEEK_API_KEY')
-    if not api_key or api_key == 'your_deepseek_api_key_here':
-        print("❌ DEEPSEEK_API_KEY não configurada no config.env")
+    api_key = os.getenv('OPENAI_API_KEY')
+    if not api_key or api_key == 'your_openai_api_key_here':
+        print("❌ OPENAI_API_KEY não configurada no config.env")
         return None
     
     try:
-        # DeepSeek usa OpenAI-compatible API
         from browser_use import ChatOpenAI
-        print("🤖 Usando DeepSeek (via OpenAI-compatible API)")
+        modelo = os.getenv('OPENAI_MODEL', 'gpt-4o')
+        print(f"🤖 Usando OpenAI GPT: {modelo}")
         return ChatOpenAI(
-            model="deepseek-chat",
+            model=modelo,
             api_key=api_key,
-            base_url="https://api.deepseek.com",
-            temperature=0.7,
-            response_format=None
+            temperature=0.7
         )
     except ImportError:
         print("❌ Erro: ChatOpenAI não disponível. Instale: pip install openai")

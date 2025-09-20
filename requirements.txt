@@ -6,14 +6,8 @@ python-dotenv>=1.0.0
 # Dependências para Google Gemini
 google-generativeai>=0.3.0
 
-# Dependências para DeepSeek (OpenAI compatible)
+# Dependências para OpenAI GPT
 openai>=1.0.0
-
-# Dependências para OpenAI (opcional)
-# openai>=1.0.0  # Já incluído acima
-
-# Dependências para Anthropic (opcional)
-anthropic>=0.7.0
 
 # Dependências adicionais para automação
 selenium>=4.15.0
